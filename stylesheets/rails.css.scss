@@ -40,11 +40,33 @@ a {
 
 pre {
   font-size:12px;
+  line-height:20px;
   letter-spacing:1px;
   background:#eee;
   overflow-x:auto;
   border-radius:10px;
   padding:10px;
+  counter-reset:line;
+  .line {
+    counter-increment:line;
+  }
+  .line:before {
+    content:counter(line);
+    display:inline-block;
+    width:2em;
+    background:#d5d5d5
+  }
+  .line:nth-child(2n):before {
+    background:#e4e4e4;
+  }
+  strong {
+    font-weight:normal;
+    color:blue;
+  }
+  em {
+    font-style: normal;
+    color:red;
+  }
 }
 
 @media screen and (max-width:600px) {

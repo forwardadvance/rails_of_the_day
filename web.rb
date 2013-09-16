@@ -29,3 +29,21 @@ def blog
   @@blog ||= Content.blog
   @@blog
 end
+
+helpers do
+  def code code
+    output = ""
+    code.gsub!(/ (class|module|def|do|end|new|if|elsif|else|unless) /) do |match|
+      "<strong>#{match}</strong>"
+    end
+    code.gsub!(/'.*?'|".*?"/) do |match|
+      "<em>#{match}</em>"
+    end
+    output << "<pre><code contenteditable=\"true\" tabindex=\"0\" spellcheck=\"false\">"
+    code.split("\n").each do |line|
+      formatted_line = "<div class='line'>" + line + "</div>"
+      output << formatted_line
+    end
+    output << "</pre></code>"
+  end
+end

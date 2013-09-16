@@ -9,87 +9,127 @@
 
   ## Here's the code:
 
-      def button_to(name = nil, options = nil, html_options = nil, &block)
-        html_options, options = options, name if block_given?
-        options      ||= {}
-        html_options ||= {}
+:ruby
+  code = <<-CODE
+    def button_to(name = nil, options = nil, html_options = nil, &block)
+      html_options, options = options, name if block_given?
+      options      ||= {}
+      html_options ||= {}
 
-        html_options = html_options.stringify_keys
-        convert_boolean_attributes!(html_options, %w(disabled))
+      html_options = html_options.stringify_keys
+      convert_boolean_attributes!(html_options, %w(disabled))
 
-        url    = options.is_a?(String) ? options : url_for(options)
-        remote = html_options.delete('remote')
+      url    = options.is_a?(String) ? options : url_for(options)
+      remote = html_options.delete('remote')
 
-        method     = html_options.delete('method').to_s
-        method_tag = BUTTON_TAG_METHOD_VERBS.include?(method) ? method_tag(method) : ''.html_safe
+      method     = html_options.delete('method').to_s
+      method_tag = BUTTON_TAG_METHOD_VERBS.include?(method) ? method_tag(method) : ''.html_safe
 
-        form_method  = method == 'get' ? 'get' : 'post'
-        form_options = html_options.delete('form') || {}
-        form_options[:class] ||= html_options.delete('form_class') || 'button_to'
-        form_options.merge!(method: form_method, action: url)
-        form_options.merge!("data-remote" => "true") if remote
+      form_method  = method == 'get' ? 'get' : 'post'
+      form_options = html_options.delete('form') || {}
+      form_options[:class] ||= html_options.delete('form_class') || 'button_to'
+      form_options.merge!(method: form_method, action: url)
+      form_options.merge!("data-remote" => "true") if remote
 
-        request_token_tag = form_method == 'post' ? token_tag : ''
+      request_token_tag = form_method == 'post' ? token_tag : ''
 
-        html_options = convert_options_to_data_attributes(options, html_options)
-        html_options['type'] = 'submit'
+      html_options = convert_options_to_data_attributes(options, html_options)
+      html_options['type'] = 'submit'
 
-        button = if block_given?
-          content_tag('button', html_options, &block)
-        else
-          html_options['value'] = name || url
-          tag('input', html_options)
-        end
-
-        inner_tags = method_tag.safe_concat(button).safe_concat(request_token_tag)
-        content_tag('form', content_tag('div', inner_tags), form_options)
+      button = if block_given?
+        content_tag('button', html_options, &block)
+      else
+        html_options['value'] = name || url
+        tag('input', html_options)
       end
+
+      inner_tags = method_tag.safe_concat(button).safe_concat(request_token_tag)
+      content_tag('form', content_tag('div', inner_tags), form_options)
+    end
+  CODE
+
+=code(code)
+
+
+
+:markdown
 
   There are a few take-homes from this.
 
   ## Parallel Assignation
 
-  On line 3 we see this happy little guy:
+  On line 2 we see this happy little guy:
 
-      html_options, options = options, name if block_given?
+:ruby
+  code = <<-CODE
+    html_options, options = options, name if block_given?
+  CODE
 
-  Ruby allows us to assign multiple variables on a single line using a format like this:
-
-      c,b = b,a
-
-  Here html_options takes the value of options, and options takes the value of name. This means that if we're passing a block, we don't need to pass in a nil value for name.
-
-  ## is_a?
-
-  The helper checks to see if the options hash is actually a String. If it is, we'll just treat it as the URL.
-
-      url = options.is_a?(String) ? options : url_for(options)
-
-  ## convert_boolean_attributes!
-
-  This little private helper takes an array of keys. If the key is found in the options hash, it replaces the value with a string. For example:
-
-      convert_boolean_attributes!(html_options, %w(disabled))
-
-  if we pass in disabled:true in the options hash, we get back disabled:"disabled"
-
-  Here's the source:
-
-      def convert_boolean_attributes!(html_options, bool_attrs)
-        bool_attrs.each { |x| html_options[x] = x if html_options.delete(x) }
-        html_options
-      end
-
-  Check out this line: if html_options.delete(x)
-
-  Deleting a key returns the key, so if it's truthy, the first part of the statement is triggered.
+=code(code)
 
 
 
-  ## Optional block
+%p Ruby allows us to assign multiple variables on a single line using a format like this:
 
-  The helper takes an optional block. This is checked for using block_given?. If you pass in a block, you will get a button. If you don't , you'll get an input type="submit".
 
-  ## Read more
+:ruby
+  code = <<-CODE
+    c,b = b,a
+  CODE
+
+=code(code)
+
+%p Here html_options takes the value of options, and options takes the value of name. This means that if we're passing a block, we don't need to pass in a nil value for name.
+
+%h2 is_a?
+
+%p On line 9 we see a use of is_a? This method handily tells us if a variable is an instance of a particular class.
+
+:ruby
+  code = <<-CODE
+    url = options.is_a?(String) ? options : url_for(options)
+  CODE
+
+=code(code)
+
+%h2 convert_boolean_attributes!
+
+%p This little private helper takes an array of keys. If the key is found in the options hash, it replaces the value with a string. For example:
+
+:ruby
+  code = <<-CODE
+    convert_boolean_attributes!(html_options, %w(disabled))
+  CODE
+
+=code(code)
+
+
+%p if we pass in disabled:true in the options hash, we get back disabled:"disabled"
+
+%p Here's the source:
+
+:ruby
+  code = <<-CODE
+    def convert_boolean_attributes!(html_options, bool_attrs)
+      bool_attrs.each { |x| html_options[x] = x if html_options.delete(x) }
+      html_options
+    end
+  CODE
+
+=code(code)
+
+%p Check out line 2: if html_options.delete(x)
+
+%p Deleting a key returns the key, so if it's truthy, the first part of the statement is triggered.
+
+
+
+%h2 Optional block
+
+%p The helper takes an optional block. This is checked for using block_given?. If you pass in a block, you will get a button. If you don't , you'll get an input type="submit".
+
+%h2 Read more
+
+:markdown
 
   [Go read more about it on Github here](https://github.com/rails/rails/blob/master/actionview/lib/action_view/helpers/url_helper.rb)
