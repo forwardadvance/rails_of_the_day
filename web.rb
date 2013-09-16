@@ -7,7 +7,7 @@ end
 
 get '/' do
   blog_post = blog.last_post
-  haml :"posts/#{blog_post.url}.html",
+  haml :"posts/#{blog_post.url}",
     layout: :"layout.html",
     locals: {blog_post: blog_post}
 end
@@ -20,12 +20,12 @@ end
 get '/*' do
   url = params[:splat][0].to_sym
   blog_post = blog.post(url)
-  haml :"posts/#{blog_post.url}.html",
+  haml :"posts/#{blog_post.url}",
     layout: :"layout.html",
     locals: {blog_post: blog_post}
 end
 
 def blog
-  @@blog |= Content.blog
+  @@blog ||= Content.blog
   @@blog
 end

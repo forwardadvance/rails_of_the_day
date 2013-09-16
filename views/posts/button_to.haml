@@ -1,4 +1,4 @@
-
+:markdown
   Today's Rails is the button_to helper.
 
   This little rockstar will make a whole RESTful form for you containing just one button, so you can make put, post and delete requests without relying on JavaScript.
@@ -72,10 +72,8 @@
 
   ## Optional block
 
+  The helper takes an optional block. This is checked for using block_given?. If you pass in a block, you will get a button. If you don't , you'll get an input type="submit".
 
+  ## Read more
 
-  # Read more
-
-  Go read more about it on Github here:
-
-  https://github.com/rails/rails/blob/master/actionview/lib/action_view/helpers/url_helper.rb
+  [Go read more about it on Github here](https://github.com/rails/rails/blob/master/actionview/lib/action_view/helpers/url_helper.rb)
