@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %title Rails of the day
+    %link{ href: 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,900', rel: 'stylesheet', type: 'text/css' }
+    %link{ href: "/rails.css", rel: "stylesheet", media: "screen", type: "text/css" }
+    %meta{ property: "fb:admins", content: "539828178" }
+
+  %body
+    #fb-root
+    %script
+      :plain
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=228729543919781";
+        fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    %header
+      Rails of the Day
+
+    %article
+      =yield
+
+    %aside
+      %h2 Comments?
+      .fb-comments{ :'data-href' => "http://www.railsoftheday.com/#{blog_post.url}", :'data-width' => "auto" }
