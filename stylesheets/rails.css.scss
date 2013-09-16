@@ -38,6 +38,15 @@ a {
   color:#922
 }
 
+pre {
+  font-size:12px;
+  letter-spacing:1px;
+  background:#eee;
+  overflow-x:auto;
+  border-radius:10px;
+  padding:10px;
+}
+
 @media screen and (max-width:600px) {
   body {
     padding:10px;
