@@ -26,8 +26,8 @@ get '/*' do
 end
 
 def blog
-  @@blog ||= Content.blog
-  @@blog
+  @blog ||= Content.blog
+  @blog
 end
 
 helpers do

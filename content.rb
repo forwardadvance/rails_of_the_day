@@ -34,9 +34,9 @@ class Content
   class << self
     def blog
       Blog.new do
-        add_post :button_to do
-          self.title = "Button_to"
-          self.date = DateTime.new(2013,9,16)
+        add_post :shuffling_up do
+          self.title = "Shuffling up method params with parallel assignation"
+          self.date = DateTime.new(2013,9,17)
         end
       end
     end
