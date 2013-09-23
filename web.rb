@@ -1,5 +1,6 @@
 require 'sinatra'
 require './content'
+require './lib/sodium/sodium'
 require 'tilt'
 
 configure do

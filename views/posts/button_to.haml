@@ -52,46 +52,6 @@
 
 
 
-:markdown
-
-  There are a few take-homes from this.
-
-  ## Parallel Assignation
-
-  On line 2 we see this happy little guy:
-
-:ruby
-  code = <<-CODE
-    html_options, options = options, name if block_given?
-  CODE
-
-=code(code)
-
-
-
-%p Ruby allows us to assign multiple variables on a single line using a format like this:
-
-
-:ruby
-  code = <<-CODE
-    c,b = b,a
-  CODE
-
-=code(code)
-
-%p Here html_options takes the value of options, and options takes the value of name. This means that if we're passing a block, we don't need to pass in a nil value for name.
-
-%h2 is_a?
-
-%p On line 9 we see a use of is_a? This method handily tells us if a variable is an instance of a particular class.
-
-:ruby
-  code = <<-CODE
-    url = options.is_a?(String) ? options : url_for(options)
-  CODE
-
-=code(code)
-
 %h2 convert_boolean_attributes!
 
 %p This little private helper takes an array of keys. If the key is found in the options hash, it replaces the value with a string. For example:
