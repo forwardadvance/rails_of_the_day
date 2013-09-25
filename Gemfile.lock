@@ -1,3 +1,8 @@
+PATH
+  remote: gems/sodium
+  specs:
+    sodium (0.0.1pre)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -22,3 +27,4 @@ DEPENDENCIES
   redcarpet
   sass
   sinatra
+  sodium!

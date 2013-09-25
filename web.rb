@@ -1,7 +1,8 @@
 require 'sinatra'
 require './content'
-require './lib/sodium/sodium'
 require 'tilt'
+require 'sodium'
+require 'pry'
 
 configure do
 end
@@ -27,7 +28,7 @@ get '/*' do
 end
 
 def blog
-  @blog ||= Content.blog
+  @blog ||= Content.website.blog
   @blog
 end
 
