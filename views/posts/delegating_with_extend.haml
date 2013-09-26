@@ -21,7 +21,7 @@
 
 %h2 The Delegator forwards method calls to another class
 
-If we look inside Sinatra/Base we'll find this dandy little guy:
+If we look inside Sinatra/Base we'll find this dandy little action ninja:
 
 :ruby
   code = <<-CODE
@@ -56,7 +56,7 @@ If we look inside Sinatra/Base we'll find this dandy little guy:
 
 %p This module defines a whole load of methods using define_method. If you look though, all of these methods send a call to the Delegator.target which, which in this case is the Application class.
 
-%h2 Rocking in to the global scope
+%h2 Rocking it in on the global scope
 
 %p Now Sinatra needs to mix these methods in to the global scope, so they are available everywhere. If you remember from last time we add methods to an object (rather than to a class) using extend.
 
@@ -69,4 +69,4 @@ If we look inside Sinatra/Base we'll find this dandy little guy:
 
 =code(code)
 
-This will extend the global scope (defined in this) with the methods in the mixin. We can now call all of these methods on the global scope, and the delegator will forward them nicely onto the Application class.
+This will extend the global scope object (pointed to by self) with the methods in the mixin. We can now call all of these methods on the global scope, and the delegator will forward them nicely onto the Application class.
