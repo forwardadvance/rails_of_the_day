@@ -1,3 +1,3 @@
 require 'time'
-require './lib/sodium/sodium'
-require './content'
+require 'rubygems'
+# require './gems/sodium/lib/sodium'
