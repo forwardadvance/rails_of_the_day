@@ -1,5 +1,5 @@
 module Sodium
-  class BlogPost
+  class BlogPost < Node
 
     attr_accessor :title, :date, :url, :tags, :blog
 

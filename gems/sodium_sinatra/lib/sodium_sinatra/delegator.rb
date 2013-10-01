@@ -9,3 +9,5 @@ module Sodium
     end
   end
 end
+
+delegate add_blog

@@ -1,7 +1,7 @@
 require 'sinatra'
 require './content'
 require 'tilt'
-require 'sodium'
+require 'sodium_dsl'
 require 'pry'
 
 configure do

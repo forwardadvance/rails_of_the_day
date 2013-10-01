@@ -1,8 +1,8 @@
-require 'sodium'
+require 'sodium_dsl'
 class Content
   class << self
     def website
-      Sodium::Website.new do
+      Sodium::Site.new do
         add_blog :rails do
           add_post :shuffling_up do
             self.title = "Shuffling up method params with parallel assignation"
