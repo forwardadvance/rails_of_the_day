@@ -1,7 +1,7 @@
 PATH
   remote: gems/sodium_dsl
   specs:
-    sodium (0.0.1pre)
+    sodium (0.1.0)
       activesupport
 
 PATH
