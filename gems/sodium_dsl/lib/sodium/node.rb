@@ -1,40 +1,36 @@
+require_relative "support"
+require_relative "dsl"
+require_relative "node_list"
+require 'active_support/core_ext/string'
+
 module Sodium
 
   # Sodium defines a tree of content. Node is the base class.
   # A Node has a parent and zero or more children
   class Node
-    attr_accessor :parent, :children
+    attr_accessor :parent, :children, :url, :title, :date
 
-    def initialize parent,
-      self.children = {}
+    extend Sodium::DSL
+
+    def self.inherited(subclass)
+      define_dsl_for(subclass)
     end
 
-    # Allows us to call methods like site.blogs and blog.blog_posts
-    def self.inherited(subclass)
-      self.define_method subclass.to_s.underscore.pluralise.to_sym do
-        children.delete_if do |child|
-          !child.is_a? subclass
-        end
+    def initialize &block
+      self.children = NodeList.new
+      if block_given?
+        self.instance_eval &block
       end
     end
 
-    def add_child key, node = nil, &block
+    def add_child key, node = nil
       if key.is_a? Node
-        node, key = key, children.keys.length.to_sym
+        node, key = key, (children.keys.length + 1).to_sym
       end
       node.parent = self
       node.url = key
-      node.init &block
       children[key] = node
     end
-
-    private
-
-      def init &block
-        if block_given?
-          self.instance_eval &block
-        end
-      end
 
   end
 end
