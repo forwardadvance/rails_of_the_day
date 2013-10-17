@@ -1,5 +1,6 @@
 -# Include vs Extend
 
+%p Include and Extend allow us to take methods from a module and add them to an object. They work slightly differently from each other though. Let's take a look...
 
 %h2 Extend adds methods directly to an object
 
@@ -45,9 +46,11 @@
   CODE
 =code(code)
 
+%p You can call extend on any object to add methods to that object alone.
+
 %h2 Include creates instance methods on a class
 
-Include takes a more traditional approach. If you include a module in a class, the methods in the module will be available to all instances of that class. You're adding additional instance methods to the class.
+%p Include takes a more traditional approach. If you include a module in a class, the methods in the module will be added as instance methods, and will be available to all instances of that class.
 
 :ruby
   code = <<-CODE
@@ -62,3 +65,9 @@ Include takes a more traditional approach. If you include a module in a class, t
     # => true
   CODE
 =code(code)
+
+%h2 Upshot
+
+%p Extend will add methods to an object, and only to that object. If we extend a class we get class methods.
+
+%p Include will include methods from a module into a class, those methods become instance methods for objects of that type.

@@ -43,7 +43,7 @@ def blog
 end
 
 get '/' do
-  blog_post = blog.get_blog_post :is_a
+  blog_post = blog.get_blog_post :include_vs_extend
   haml :"posts/#{blog_post.url}",
     layout: :"layout.html",
     locals: {blog_post: blog_post}
