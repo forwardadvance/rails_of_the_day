@@ -33,6 +33,10 @@ def site
         self.title = "Delegating methods using extend"
         self.date = DateTime.new(2013,9,25)
       end
+      add_blog_post :bang_dup do
+        self.title = "Using dup to dry up bang methods. Bang bang!"
+        self.date = DateTime.new(2013,10,17)
+      end
 
     end
   end
