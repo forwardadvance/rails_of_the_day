@@ -1,7 +1,7 @@
 require 'sinatra'
 require './content'
 require 'tilt'
-require 'sodium'
+require 'stripes_dsl'
 require 'pry'
 require 'debugger'
 
@@ -9,7 +9,7 @@ configure do
 end
 
 def site
-  return @site ||= Sodium::Site.new do
+  return @site ||= Stripes::Site.new do
     add_blog :rails do
       puts "init_blog"
       add_blog_post :shuffling_up do
