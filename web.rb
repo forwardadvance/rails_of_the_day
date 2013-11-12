@@ -1,7 +1,9 @@
 require 'sinatra'
 require './content'
 require 'tilt'
-require 'stripes_dsl'
+require "rubygems"
+require 'content_driven'
+require 'content_driven_sinatra'
 require 'pry'
 require 'debugger'
 
@@ -9,11 +11,9 @@ configure do
 end
 
 def site
-  return @site ||= Stripes::Site.new do
+  return @site ||= ContentDriven::Site.new do
     add_blog :rails do
-      puts "init_blog"
       add_blog_post :shuffling_up do
-        puts "init_blog_post"
         self.title = "Shuffling up method params with parallel assignation"
         self.date = DateTime.new(2013,9,17)
       end
@@ -42,15 +42,23 @@ def site
   end
 end
 
+ContentDriven::Page.after do |page|
+  puts "***"
+  puts page
+end
+
 def blog
   site.get_blog :rails
 end
 
 get '/' do
-  blog_post = blog.get_blog_post :include_vs_extend
+  post_count = blog.get_blog_posts.length
+  post_number = (Date.today - Date.new(2013,9,10)).to_i % post_count
+  url = blog.get_blog_posts.keys[post_number]
+  blog_post = blog.get_blog_post url
   haml :"posts/#{blog_post.url}",
     layout: :"layout.html",
-    locals: {blog_post: blog_post}
+    locals: {blog_post: blog_post, post_number: post_number}
 end
 
 get '/rails.css' do
