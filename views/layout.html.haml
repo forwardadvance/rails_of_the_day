@@ -23,9 +23,11 @@
 
     %header
       Rails of the Day -
-      Learn a little Rails each day -
-      %strong
-        Day #{post_number}
+      Learn a little Rails each day
+      -if defined? post_number
+        ="-"
+        %strong
+          Day #{post_number}
 
     %article
       %h1= blog_post.title
