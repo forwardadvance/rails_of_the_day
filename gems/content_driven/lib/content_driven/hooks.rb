@@ -17,7 +17,7 @@ module ContentDriven
 
     def call_after_hooks
       self.class.after_hooks.each do |hook|
-        self.instance_eval &hook, self
+        self.instance_eval(&hook, self)
       end
     end
   end
